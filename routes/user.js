@@ -1,9 +1,11 @@
 //const db = require('../models');
 const router = require('express').Router();
 const bodyParser = require('body-parser');
+
+const bot = require('../bot');
 const { oauth } = require('../constants');
 const { parseToken } = require('../utils');
-const bot = require('../bot');
+
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));

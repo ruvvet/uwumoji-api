@@ -2,8 +2,11 @@
 //const db = require('../models');
 const router = require('express').Router();
 const bodyParser = require('body-parser');
+const { v4: uuidv4 } = require('uuid');
+
 const { oauth } = require('../constants');
-//const { v4: uuidv4 } = require('uuid');
+const { parseToken } = require('../utils');
+
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));

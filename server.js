@@ -14,11 +14,5 @@ app.use(cors({origin: '*'}));
 app.use(express.urlencoded({ extended: false }));
 app.use('/', routes);
 
-
-
-// organize routes by responsibility -
-//
-
-
 // LISTEN ////////////////////////////////////////////////////////////////
 app.listen(process.env.PORT || 5000);
