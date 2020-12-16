@@ -4,8 +4,6 @@
 
 const DiscordOauth = require('discord-oauth2');
 
-// THE COOKIE
-const COOKIE = 'uwucookie';
 
 // OBJ CONTAINING CLIENT ID + SECRET FOR DISCORD OAUTH
 const oauth = new DiscordOauth({
@@ -14,4 +12,4 @@ const oauth = new DiscordOauth({
   redirectUri: process.env.OAUTH_CALLBACK,
 });
 
-module.exports = { COOKIE, oauth };
+module.exports = { oauth };

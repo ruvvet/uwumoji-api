@@ -2,6 +2,7 @@
 
 // DEPENDENCIES //////////////////////////////////////////////////////////
 require('dotenv').config();
+const cors = require('cors')
 const express = require('express');
 const routes = require('./routes');
 
@@ -9,20 +10,15 @@ const routes = require('./routes');
 const app = express();
 
 // MIDDLEWARE ////////////////////////////////////////////////////////////
+app.use(cors({origin: '*'}));
 app.use(express.urlencoded({ extended: false }));
-//app.use('/', routes);
+app.use('/', routes);
 
 
 
-app.get('/', authorize)
+// organize routes by responsibility -
+//
 
-
-function authorize(req, res){
-
-    //but when do i send the data???
-res.redirect('http://localhost:3000');
-
-}
 
 // LISTEN ////////////////////////////////////////////////////////////////
 app.listen(process.env.PORT || 5000);

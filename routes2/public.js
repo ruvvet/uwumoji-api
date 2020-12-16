@@ -31,11 +31,7 @@ async function oauthCallback(req, res) {
   //look up the discord id
   const userInfo = await oauth.getUser(userAuth.access_token);
 
-  // calculate the expiration
-  let now = new Date().getTime();
-  let expiryDate = now + 1000 * userAuth.expires_in;
-
-  // find or create user in the db
+    // find or create user in the db
   const [user, created] = await db.user.findOrCreate({
     where: {
       // this should be discord id
@@ -63,12 +59,12 @@ async function oauthCallback(req, res) {
       )
       .catch(() => null);
   }
-  const maxAge = 30 * 24 * 60 * 60 * 1000; // this is 30 days
 
-  // send a cookie here that contains their uuid
-  res.cookie(COOKIE, user.uuid, { maxAge });
-  res.redirect('/');
+  res.redirect('https://localhost:3000');
 }
+
+
+
 
 // renders the login page
 // clicking the login button will direct to the callback
