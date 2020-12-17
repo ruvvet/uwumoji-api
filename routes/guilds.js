@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.get('/', getUserGuilds);
 router.get('/emojis', getEmojisByGuild);
 
-// Gets all user's guilds - dupe of user/guilds
+// Gets all the guilds the user is an owner of
 async function getUserGuilds(req, res) {
   const accessToken = parseToken(req);
 
@@ -37,7 +37,6 @@ async function getEmojisByGuild(req, res) {
     emojisByGuild[guild.name] = guildEmojis;
   });
 
-  console.log(emojisByGuild);
   res.status(200).json(emojisByGuild);
 }
 

@@ -22,7 +22,8 @@ async function getUserDetails(req, res) {
   res.status(200).json(user);
 }
 
-// Gets all the guilds the user is an owner of
+
+// Gets all user's guilds - dupe of /guilds
 async function getUserGuilds(req, res) {
   const accessToken = parseToken(req)
 

@@ -35,12 +35,8 @@ async function exchange(req, res) {
     })
     .catch(console.error);
 
-  console.log('userAuth', userAuth);
-
   //look up the discord id
   const userInfo = await oauth.getUser(userAuth.access_token);
-
-  console.log('user-info', userInfo);
 
   res.status(201).json(userAuth);
 
