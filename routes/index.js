@@ -11,13 +11,7 @@ router.use('/guilds', require('./guilds'));
 router.use('/create', require('./create'));
 
 // ROUTES ////////////////////////////////////////////////////////////////
-router.use(function (req, res, next) {
-  res.status(404);
-});
 
-router.use(function (err, req, res, next) {
-  res.status(500);
-});
 
 module.exports = router;
 

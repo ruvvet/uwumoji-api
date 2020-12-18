@@ -18,8 +18,8 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES ////////////////////////////////////////////////////////////////
-router.get('/', upload); // the upload page
-router.post('/', uploads.single('emojiFile'), update); // uploads the file from the multipart-form type
+// router.get('/', upload); // the upload page
+// router.post('/', uploads.single('emojiFile'), update); // uploads the file from the multipart-form type
 router.get('/edit', editEmojiPage); // page for editing emoji
 router.put('/edit/name', editEmojiName); // updates the emoji's name
 router.put('/edit/tags', editEmojiTags); // updates the emoji's tags

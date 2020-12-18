@@ -22,12 +22,12 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES ////////////////////////////////////////////////////////////////
 //router.get('/refresh', checkToken);
-router.get('/', getMain);
+// router.get('/', getMain);
 router.get('/emoji/:emojiid', selectEmojiByID);
 router.get('/emoji/:emojiid/edit', editEmojiByID);
-router.get('/profile', getUserDetails);
-router.get('/guilds', getUserGuilds);
-router.put('/selectguild', selectGuild);
+// router.get('/profile', getUserDetails);
+// router.get('/guilds', getUserGuilds);
+// router.put('/selectguild', selectGuild);
 router.get('/emojidetails', getEmojiDetails);
 router.put('/emojidetails', selectEmoji);
 router.get('/adduwumoji', addUwuMojiBot);

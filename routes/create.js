@@ -7,22 +7,20 @@ const router = require('express').Router();
 const { parseToken } = require('../utils');
 
 // MIDDLEWARE ////////////////////////////////////////////////////////////
-const uploads = multer({ dest: './uploads' });
+const uploads = multer({ dest: './uploads/' });
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES ////////////////////////////////////////////////////////////////
 
-router.post('/', uploads.single('emojiImg'), upload); // uploads the file from the multipart-form type
+router.post('/', uploads.single('img'), upload); // uploads the file from the multipart-form type
 
 // and Uploads the emoji to cloudinary and the guild
 function upload(req, res) {
-
-    
-console.log('hello, youve reached the api')
-    console.log(req)
+  console.log('hello, youve reached the api');
+  console.log(req);
   console.log(req.body);
-  console.log(req.file)
+  console.log(req.file);
 
   // takes the file from the multipart form in the uploads page
   const file = req.file.path;

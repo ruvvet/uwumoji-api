@@ -9,9 +9,9 @@ const { COOKIE, oauth } = require('../constants');
 
 // ROUTES ////////////////////////////////////////////////////////////////
 // they should only 'see' these for logging in/handling oauth cred
-router.get('/callback', oauthCallback);
-router.get('/login', login);
-router.get('/authorize', authorize);
+// router.get('/callback', oauthCallback);
+// router.get('/login', login);
+// router.get('/authorize', authorize);
 router.get('/info', info);
 
 // FUNCTIONS /////////////////////////////////////////////////////////////
