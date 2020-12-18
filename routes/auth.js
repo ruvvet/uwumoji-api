@@ -1,12 +1,12 @@
 // DEPENDENCIES //////////////////////////////////////////////////////////
-//const db = require('../models');
+const db = require('../models');
+const axios = require('axios');
 const router = require('express').Router();
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 
 const { oauth } = require('../constants');
 const { parseToken } = require('../utils');
-
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -38,41 +38,44 @@ async function exchange(req, res) {
   //look up the discord id
   const userInfo = await oauth.getUser(userAuth.access_token);
 
+  // calculate the expiration
+  let now = new Date().getTime();
+  let expiryDate = now + 1000 * userAuth.expires_in;
+
+  // find or create user in the db
+  const [user, created] = await db.user.findOrCreate({
+    where: {
+      // this should be discord id
+      discord_id: userInfo.id,
+    },
+    defaults: {
+      username: userInfo.username,
+      uuid: uuidv4(),
+      access_token: userAuth.access_token,
+      expiry: expiryDate,
+      refresh_token: userAuth.refresh_token,
+      date_visited: Date.now(),
+    },
+  });
+
+  if (!created) {
+    await db.user
+      .update(
+        {
+          access_token: userAuth.access_token,
+          expiry: userAuth.expires_in,
+          refresh_token: userAuth.refresh_token,
+        },
+        { where: { uuid: user.uuid } }
+      )
+      .catch(() => null);
+  }
+
   res.status(201).json(userAuth);
-
-  //   // find or create user in the db
-  //   const [user, created] = await db.user.findOrCreate({
-  //     where: {
-  //       // this should be discord id
-  //       discord_id: userInfo.id,
-  //     },
-  //     defaults: {
-  //       username: userInfo.username,
-  //       uuid: uuidv4(),
-  //       access_token: userAuth.access_token,
-  //       expiry: expiryDate,
-  //       refresh_token: userAuth.refresh_token,
-  //       date_visited: Date.now(),
-  //     },
-  //   });
-
-  //   if (!created) {
-  //     await db.user
-  //       .update(
-  //         {
-  //           access_token: userAuth.access_token,
-  //           expiry: userAuth.expires_in,
-  //           refresh_token: userAuth.refresh_token,
-  //         },
-  //         { where: { uuid: user.uuid } }
-  //       )
-  //       .catch(() => null);
-  //   }
 }
 
-
 async function refresh(req, res) {
-// make an api post call to discord with the client credentials
+  // make an api post call to discord with the client credentials
   // this returns a new access token + refresh token
   const data = {
     client_id: process.env.CLIENT_ID,
@@ -94,48 +97,18 @@ async function refresh(req, res) {
   let now = new Date().getTime();
   let expiryDate = now + 1000 * newToken.data.expires_in;
 
-
   await db.user
-  .update(
-    {
-      access_token: newToken.data.access_token,
-      expiry: expiryDate,
-      refresh_token: newToken.data.refresh_token,
-    },
-    { where: { uuid: user.uuid } }
-  )
-  .catch(() => null);
+    .update(
+      {
+        access_token: newToken.data.access_token,
+        expiry: expiryDate,
+        refresh_token: newToken.data.refresh_token,
+      },
+      { where: { uuid: user.uuid } }
+    )
+    .catch(() => null);
 
-    res.status(201).json(newToken);
-
-    //   // find or create user in the db
-    //   const [user, created] = await db.user.findOrCreate({
-    //     where: {
-    //       // this should be discord id
-    //       discord_id: userInfo.id,
-    //     },
-    //     defaults: {
-    //       username: userInfo.username,
-    //       uuid: uuidv4(),
-    //       access_token: userAuth.access_token,
-    //       expiry: expiryDate,
-    //       refresh_token: userAuth.refresh_token,
-    //       date_visited: Date.now(),
-    //     },
-    //   });
-
-    //   if (!created) {
-    //     await db.user
-    //       .update(
-    //         {
-    //           access_token: userAuth.access_token,
-    //           expiry: userAuth.expires_in,
-    //           refresh_token: userAuth.refresh_token,
-    //         },
-    //         { where: { uuid: user.uuid } }
-    //       )
-    //       .catch(() => null);
-    //   }
-  }
+  res.status(201);
+}
 
 module.exports = router;
