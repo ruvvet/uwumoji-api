@@ -1,5 +1,4 @@
 // MAIN ROUTER
-// HANDLES THE 404 + 500 ERRORS
 
 // DEPENDENCIES //////////////////////////////////////////////////////////
 const router = require('express').Router();

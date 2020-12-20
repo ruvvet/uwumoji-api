@@ -8,12 +8,14 @@ const { v4: uuidv4 } = require('uuid');
 const { oauth } = require('../constants');
 const { parseToken } = require('../utils');
 
+
+// MIDDLEWARE ////////////////////////////////////////////////////////////
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES ////////////////////////////////////////////////////////////////
+router.get('/', authorize);
 router.post('/exchange', exchange);
-router.get('/authorize', authorize);
 router.put('/refresh', refresh);
 //router.get('/token', sendAccessToken)
 
