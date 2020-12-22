@@ -110,7 +110,7 @@ async function refresh(req, res) {
     )
     .catch(() => null);
 
-  res.status(201);
+  res.status(201).send();
 }
 
 module.exports = router;

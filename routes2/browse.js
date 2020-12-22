@@ -14,12 +14,12 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
 // ROUTES ////////////////////////////////////////////////////////////////
-router.post('/', addEmoji); // add an emoji
+//router.post('/', addEmoji); // add an emoji
 router.get('/', browseUwuMoji); // shows all the "uploaded emoji" that are stored in the database
-router.get('/discord', browseDiscord); // calls the bot and displays all the emoji the bot has access to
-router.get('/emojigg', browseEmojiGG); //  - NOT IN USE - calls the emoji.gg api and displays all their emoji
-router.get('/emojiggcategory', getEmojiGGcat); // gets + sends a list of categories from the emoji.gg api
-router.get('/emojigg/:page', browseEmojiggPage); // calls the emoji.gg api and displays all emoji w/ pagination
+//router.get('/discord', browseDiscord); // calls the bot and displays all the emoji the bot has access to
+//router.get('/emojigg', browseEmojiGG); //  - NOT IN USE - calls the emoji.gg api and displays all their emoji
+//router.get('/emojiggcategory', getEmojiGGcat); // gets + sends a list of categories from the emoji.gg api
+//router.get('/emojigg/:page', browseEmojiggPage); // calls the emoji.gg api and displays all emoji w/ pagination
 router.get('/emojigg/category/:cat', browseEmojiggCategory); // calls the emoji.gg api and sorts all emoji by category
 
 // FUNCTIONS /////////////////////////////////////////////////////////////

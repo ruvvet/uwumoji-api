@@ -7,7 +7,7 @@ const router = require('express').Router();
 router.use('/auth', require('./auth'));
 router.use('/user', require('./user'));
 router.use('/guilds', require('./guilds'));
-router.use('/create', require('./create'));
+router.use('/emoji', require('./emoji'));
 router.use('/browse', require('./browse'));
 
 // ROUTES ////////////////////////////////////////////////////////////////

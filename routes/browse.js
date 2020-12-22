@@ -23,7 +23,7 @@ router.get('/emojigg/category/:cat', browseEmojiggCategory); // calls the emoji.
 // Gallery for the uwumoji db - displays the emojis in the database
 // calls the database, finds all the emoji in the emoji table
 async function browseUwuMoji(req, res) {
-  console.log('someone is calling me - uwu');
+
   const allemoji = await db.emoji.findAll().catch(() => null);
   res.status(200).json(allemoji);
 }
@@ -31,7 +31,7 @@ async function browseUwuMoji(req, res) {
 // Gallery for all the discord emoji - displays all the emojis the bot has access to
 // calls the bot to get all the emoji it has access to based on which guilds it is in
 function browseDiscord(req, res) {
-  console.log('someone is calling me - disc');
+
   const allemoji = bot.getAllEmoji();
   res.status(200).json(allemoji);
 }
@@ -39,7 +39,7 @@ function browseDiscord(req, res) {
 // Gallery for all the emoji.gg api emoji
 // calls the emoji.gg api to get all the emoji
 async function browseEmojiGG(req, res) {
-  console.log('someone is calling me - emo');
+
   const allemoji = await axios.get('https://emoji.gg/api').catch(() => null);
   res.status(200).json(allemoji.data);
 }
@@ -74,9 +74,7 @@ function browseDiscordPage(req, res) {
   }
 
   // sends emojis to be displayed
-  res
-    .status(200)
-    .json({ emojis: allemoji.array().slice(start, end), page, end: lastPage });
+  res.json({ emojis: allemoji.array().slice(start, end), page, end: lastPage });
 }
 
 // Gallery for all the emoji.gg api emoji - but paginated
